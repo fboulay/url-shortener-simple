@@ -1,0 +1,25 @@
+
+== url-shortener
+
+Simple demonstration code base to create an URL shorterner API.
+
+=== Prerequisites
+
+You can user either Leiningen (version >= 2.9) or Docker (any recent version should wor) to run this project on your local machine
+
+=== Running using Leiningen
+
+To start a web server for the application, run:
+
+....
+lein ring server
+....
+
+=== Running using Docker
+
+To start the web server using Docker, run:
+
+....
+docker run -t url-short
+....
+
