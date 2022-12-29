@@ -5,7 +5,9 @@
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [compojure "1.6.1"]
                  [ring/ring-defaults "0.3.2"]
-                 [ring/ring-json "0.5.1"]]
+                 [ring/ring-json "0.5.1"]
+                 [clj-test-containers "0.7.4"]
+                 [org.testcontainers/postgresql "1.17.6"]]
   :plugins [[lein-ring "0.12.5"]]
   :ring {:handler url-shortener.handler/app}
   :profiles
