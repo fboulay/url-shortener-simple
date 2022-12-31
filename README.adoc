@@ -34,3 +34,4 @@ This is not a proper implementation. Here is a list of some elements that could 
 - No API documentation (eg OpenAPI)
 - No unit test
 - No production artifact (only dev is done)
+- Deleting row should be logical. Right now, it is really deleted.

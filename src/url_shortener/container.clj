@@ -4,13 +4,17 @@
 
 (def container-definition
   (tc/init {:container (.
-                        (PostgreSQLContainer. "postgres:12.2")
+                        (PostgreSQLContainer. "postgres:15.1")
                         (withInitScript "../resources/init_schema.sql"))
             :exposed-ports [5432]}))
 
-(def container (atom nil))
+(def
+  ^:private
+  container (atom nil))
 
-(defn start! []
+(defn start!
+  "Either start a container and return it or return an already running container"
+  []
    (if-not @container
      (reset! container (tc/start! container-definition))
      @container))
