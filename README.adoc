@@ -15,15 +15,18 @@ To start a web server for the application, run:
 lein ring server
 ....
 
-Then the web server is available at http://localhost:3000
+Then the web server is available at http://localhost:3000 (the browser should be openend automatically when the command is run)
 
 === Running using Docker
 
 To start the web server using Docker, run:
 
 ....
-docker run -t url-short
+docker build -t url-short .
+docker run -it --rm --name url-short -v /var/run/docker.sock:/var/run/docker.sock -p 3000:3000 url-short
 ....
+
+Then the web server is available at http://localhost:3000
 
 == Caveats
 
@@ -35,3 +38,4 @@ This is not a proper implementation. Here is a list of some elements that could 
 - No unit test
 - No production artifact (only dev is done)
 - Deleting row should be logical. Right now, it is really deleted.
+- Dockerfile could be optimized, eg the an uberjar could be generated and run using `java`
