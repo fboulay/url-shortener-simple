@@ -20,7 +20,10 @@
           :status 302}
          {:body (s/hash-to-long-url hash) }))
 
-  (POST "/short" request {:body (s/create-short-url (get-in request [:body "url"]))})
+  (POST "/short" request (let [inserted (s/create-short-url (get-in request [:body "url"]))
+                               has-error? (contains? inserted :error)]
+                           {:body (if has-error? {"message" "Error when creating short URL"} inserted)
+                            :status (if has-error? 500 201)}))
 
   (DELETE "/url" request
           (let [hash (get-in request [:body "hash"])
@@ -30,13 +33,13 @@
                (if (s/delete-url-by-hash hash)
                  {"message" "ok"}
                  {"message" "no op"})
-               :status 204}
+               :status 200}
               (if long-url
                 {:body
                  (if (s/delete-url-by-long-url long-url)
                    {"message" "ok"}
                    {"message" "no op"})
-                 :status 204}
+                 :status 200}
                 {:body {"error" "Error when deleting URL"} :status 500}
                 ))))
 

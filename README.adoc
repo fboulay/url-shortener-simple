@@ -40,7 +40,6 @@ This is not a proper implementation. Here is a list of some elements that could 
 - Deleting row should be logical. Right now, it is really deleted.
 - Dockerfile could be optimized, eg the an uberjar could be generated and run using `java`
 - A lot of error management is missing, everywhere: results from the database, paremeters check in all functions, parameters sent by the client in HTTP endpoints...
-- Body sent in DELETE responses is not working (don't know why)
 
 == Current implementation
 
