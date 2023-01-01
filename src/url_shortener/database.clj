@@ -44,11 +44,22 @@
                   (where [:= :hash hash])
                   (sql/format {:pretty true}))))
 
+(defn find-row-by-long-url
+  "Find a row by the provided long url"
+  [long-url]
+  (jdbc/execute! datasource
+                 (->
+                  (select :*)
+                  (from :url)
+                  (where [:= :long_url long-url])
+                  (sql/format {:pretty true}))))
+
 (defn delete-url-by-hash [hash]
   (jdbc/execute! datasource
                  (->
                   (delete-from :url)
                   (where [:= :hash hash])
+                  (returning :*)
                   (sql/format {:pretty true}))))
 
 (defn delete-url-by-long [long-url]
@@ -56,6 +67,7 @@
                  (->
                   (delete-from :url)
                   (where [:= :long_url long-url])
+                  (returning :*)
                   (sql/format {:pretty true}))))
 
 (defn long-url-already-inserted? [long-url]

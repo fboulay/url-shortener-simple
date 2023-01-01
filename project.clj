@@ -14,7 +14,7 @@
                  [com.github.seancorfield/next.jdbc "1.3.847"]
                  [org.postgresql/postgresql "42.5.1"]]
   :plugins [[lein-ring "0.12.5"]]
-  :ring {:handler url-shortener.handler/app}
+  :ring {:handler url-shortener.handler/app :auto-refresh? true}
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
                         [ring/ring-mock "0.3.2"]]}})
