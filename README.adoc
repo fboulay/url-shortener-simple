@@ -50,6 +50,7 @@ Testcontainers is used to create a Postgres database using Docker when the app i
 A few layers: `handler.clj` for dealing with HTTP endpoints, `service.clj` for having a simple layer service and `database.clj` for database accesses.
 
 3 endpoints:
+
 - POST `/short` with a parameter named `url` in a JSON body: Creation a short URL based on the URL sent in the body
 - GET ``/:short_url`` : convert the `short_url` provided in the path to a full URL
 - DELETE `/url` with either a parameter named `long_url` or `hash` in a JSON body: deleting a registered short URL either using the hash or the long URL
