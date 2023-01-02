@@ -1,5 +1,6 @@
 (ns url-shortener.service
   (:require [url-shortener.database :as db]
+            [url-shortener.config :as c]
             [clojure.set :refer [rename-keys]]))
 
 (def
@@ -35,18 +36,23 @@
   (let [max-size (- (count long-url) 1)]
     (loop  [current-size 3
             current-hash (find-available-hash alphabet current-size)]
-      (if (and current-hash (<= current-size max-size))
-        {:hash current-hash :long-url long-url}
-        (recur (inc current-size)
-               (find-available-hash alphabet (inc current-size)))))))
+      ;; Check current short url size compared to long url, to return an error
+      (if (>= (+ current-size (count c/domain-name-short)) max-size)
+        nil
+        (if current-hash
+          {:hash current-hash :long-url long-url}
+          (recur (inc current-size)
+                 (find-available-hash alphabet (inc current-size))))))))
 
 (defn- short-url-entity->result
   "Convert a short URL entity (coming from the database) to a simple map"
   [short-url-entity]
-  (-> short-url-entity
-      (first)
-      (select-keys [:url/hash :url/long_url])
-      (rename-keys {:url/hash :hash :url/long_url :long_url}))
+
+  (let [result (-> short-url-entity
+                   (first)
+                   (select-keys [:url/hash :url/long_url])
+                   (rename-keys {:url/hash :hash :url/long_url :long_url}))]
+    (assoc result :short_url (str c/domain-name-short (:hash result))))
   )
 
 (defn create-short-url

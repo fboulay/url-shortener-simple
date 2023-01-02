@@ -7,7 +7,7 @@
 
 (def domain-name-short
   (if dev?
-    "localhost:3000"
+    "http://localhost:3000/"
     "bit.ly"))
 
 (def database-port
